@@ -27,7 +27,15 @@ const useWordle = (solution) => {
    * if user presses enter add the new guess
    */
 
-  const handleKeyUp = () => {};
+  const handleKeyUp = ({ key }) => {
+    if (/^[a-zA-Z]$/.test(key)) {
+      if (currentGuess.length < 5) {
+        setCurrentGuess((prev) => {
+          return prev + key;
+        });
+      }
+    }
+  };
 
   return { turn, currentGuess, guesses, isCorrect, handleKeyUp };
 };
