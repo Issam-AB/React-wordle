@@ -12,7 +12,8 @@ function App() {
   return (
     <div className="App">
       <h1>World (Solution)</h1>
-      {solution && <Wordle soultion={solution} />}
+      {/* {JSON.stringify(solution, null, 2)} */}
+      {solution && <Wordle solution={solution} />}
     </div>
   );
 }

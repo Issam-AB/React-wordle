@@ -4,16 +4,34 @@ const useWordle = (solution) => {
   const [turn, setTurn] = useState(0);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses] = useState([]); // each guess is an array
-  const [history, setHistory] = useState(["hello", "ninja"]); // each guess is a string
+  const [history, setHistory] = useState([]); // each guess is a string
   const [isCorrect, setIsCorrect] = useState(false);
 
   /*
    * format a guess into an array of letter objects
    * e.g [{key: 'a. color: 'yellow}]
    */
-
   const formatGuess = () => {
-    console.log("formatting the guess - ", currentGuess);
+    let solutionArray = [...solution];
+    let formattedGuess = [...currentGuess].map((l) => {
+      return { key: l, color: "grey" };
+    });
+    //* find any green letter (correct position)
+    formattedGuess.forEach((l, i) => {
+      if (solution[i] === l.key) {
+        formattedGuess[i].color = "green";
+        solutionArray[i] = null;
+      }
+    });
+    //* find any yellow colors
+    formattedGuess.forEach((l, i) => {
+      if (solutionArray.includes(l.key) && l.color !== "green") {
+        formattedGuess[i].color = "yellow";
+        solutionArray[solutionArray.indexOf(l.key)] = null;
+      }
+    });
+    console.log(solution);
+    return formattedGuess;
   };
 
   /*
@@ -33,38 +51,29 @@ const useWordle = (solution) => {
     if (key === "Enter") {
       //* only add guess if turn is less than 5
       if (turn > 5) {
-        console.log("you used all your guesses");
+        console.log("you used all your guesses!");
         return;
       }
-      //* di not allow duplicate words
+      //* do not allow duplicate words
       if (history.includes(currentGuess)) {
-        console.log("you already tried taht word");
+        console.log("you already tried that word.");
         return;
       }
-      //* check word is 5 char long
+      //* check word is 5 chars
       if (currentGuess.length !== 5) {
-        console.log("word must be 5 chars long");
+        console.log("word must be 5 chars.");
         return;
       }
-
-      if (key === "Enter") {
-      }
-      formatGuess();
+      const formatted = formatGuess();
+      console.log(formatted);
     }
-
     if (key === "Backspace") {
-      setCurrentGuess((prev) => {
-        // slice methode slected element in array by start given.
-        return prev.slice(0, -1);
-      });
+      setCurrentGuess((prev) => prev.slice(0, -1));
       return;
     }
-
-    if (/^[a-zA-Z]$/.test(key)) {
+    if (/^[A-Za-z]$/.test(key)) {
       if (currentGuess.length < 5) {
-        setCurrentGuess((prev) => {
-          return prev + key;
-        });
+        setCurrentGuess((prev) => prev + key);
       }
     }
   };
