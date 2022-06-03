@@ -57,6 +57,10 @@ h1 {
   animation-delay: 0.8s;
 }
 
+.row.current > div.filled {
+  animation: bounce 0.2 ease-in-out forwards;
+}
+
 /** animation*/
 
 @keyframes flip {
@@ -64,4 +68,13 @@ h1 {
   45%{ transform: rotateX(90deg); background: white; border-color: #333;}
   55%{ transform: rotateX(90deg);background: var(--background); border-color: var(--border-color); color: white; }
   100% { transform: rotateX(0);background: var(--background); border-color: var(--border-color); color: white; }
+}
+
+@keyframes bounce {
+  0% {
+     transform: scale(1);
+     border-color: #ddd
+  }
+  50% { transform: scale(1.2)}
+  100% {transform: scale(1); border-color: #333;}
 }
