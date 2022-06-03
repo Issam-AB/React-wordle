@@ -28,6 +28,12 @@ const useWordle = (solution) => {
    */
 
   const handleKeyUp = ({ key }) => {
+    if (key === "Backspace") {
+      setCurrentGuess((prev) => {
+        return prev.slice(0, -1);
+      });
+      return;
+    }
     if (/^[a-zA-Z]$/.test(key)) {
       if (currentGuess.length < 5) {
         setCurrentGuess((prev) => {

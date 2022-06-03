@@ -7,11 +7,11 @@ const Wordle = ({ solution }) => {
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
 
-    // return cleaup funstion and run it as a first
+    // return cleaup function and run it as a first
     return () => window.removeEventListener("keyup", handleKeyUp);
   }, [handleKeyUp]);
 
-  return <div>current Guess: {currentGuess}</div>;
+  return <div>current Guess - {currentGuess}</div>;
 };
 
 export default Wordle;
